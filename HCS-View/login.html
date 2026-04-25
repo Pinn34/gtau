@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>FLEXCORE APPS</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#070a12;
+  --purple:#b45cff;
+  --purple2:#7c3cff;
+  --cyan:#00e5ff;
+  --text:#eaeaff;
+  --muted:#8a90b2;
+  --card:rgba(255,255,255,.06);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:Poppins,sans-serif;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: radial-gradient(circle at 20% 20%, rgba(180,92,255,.25), transparent 40%),
+              radial-gradient(circle at 80% 10%, rgba(0,229,255,.18), transparent 35%),
+              radial-gradient(circle at 50% 80%, rgba(124,60,255,.15), transparent 40%),
+              var(--bg);
+  overflow:hidden;
+}
+
+/* moving glow effect biar gak flat */
+body::before{
+  content:"";
+  position:absolute;
+  width:500px;
+  height:500px;
+  background:radial-gradient(circle, rgba(180,92,255,.25), transparent 60%);
+  filter:blur(60px);
+  animation:move 8s infinite alternate;
+}
+
+@keyframes move{
+  from{transform:translate(-20%, -10%);}
+  to{transform:translate(20%, 10%);}
+}
+
+.card{
+  width:100%;
+  max-width:420px;
+  background:var(--card);
+  backdrop-filter:blur(18px);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:18px;
+  padding:18px;
+  text-align:center;
+  box-shadow:0 0 25px rgba(180,92,255,.15);
+  z-index:2;
+}
+
+.logo{
+  width:100%;
+  aspect-ratio:16/9;
+  border-radius:12px;
+  object-fit:cover;
+  margin-bottom:14px;
+  box-shadow:0 0 20px rgba(0,0,0,.5);
+}
+
+.title{
+  font-family:Orbitron;
+  font-size:22px;
+  font-weight:800;
+  color:var(--purple);
+  text-shadow:0 0 12px rgba(180,92,255,.6);
+}
+
+.subtitle{
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:16px;
+}
+
+.form-group{
+  position:relative;
+  margin-bottom:12px;
+}
+
+.form-group i{
+  position:absolute;
+  left:12px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--cyan);
+}
+
+input{
+  width:100%;
+  padding:11px 12px 11px 36px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(10,12,25,.7);
+  color:var(--text);
+  outline:none;
+  transition:.2s;
+}
+
+input:focus{
+  border-color:var(--purple);
+  box-shadow:0 0 10px rgba(180,92,255,.25);
+}
+
+button{
+  width:100%;
+  padding:11px;
+  border-radius:10px;
+  border:1px solid rgba(180,92,255,.4);
+  background:linear-gradient(135deg, rgba(180,92,255,.2), rgba(124,60,255,.1));
+  color:var(--text);
+  font-weight:600;
+  cursor:pointer;
+  transition:.2s;
+}
+
+button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 18px rgba(180,92,255,.25);
+}
+
+.buy-access{
+  display:inline-block;
+  margin-top:14px;
+  padding:7px 12px;
+  border-radius:10px;
+  border:1px solid rgba(0,229,255,.25);
+  color:var(--cyan);
+  text-decoration:none;
+  font-size:12px;
+}
+
+.footer{
+  margin-top:16px;
+  font-size:10px;
+  color:var(--muted);
+}
+
+/* toast */
+.toast{
+  position:fixed;
+  bottom:25px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(180,92,255,.9);
+  color:white;
+  padding:10px 14px;
+  border-radius:8px;
+  font-size:12px;
+  display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<video class="logo" autoplay loop muted playsinline>
+  <source src="https://gangalink.vercel.app/i/ul6cqbvj.mp4" type="video/mp4">
+</video>
+
+<audio src="https://gangalink.vercel.app/i/ul6cqbvj.mp4" autoplay loop></audio>
+
+<div class="title">Kaizyy 505</div>
+<div class="subtitle">⚙️ FlexCore Access System</div>
+
+<form method="POST" action="/auth">
+  <div class="form-group">
+    <i class="fas fa-user"></i>
+    <input type="text" name="username" placeholder="Username" required>
+  </div>
+
+  <div class="form-group">
+    <i class="fas fa-key"></i>
+    <input type="password" name="key" placeholder="Password" required>
+  </div>
+
+  <button type="submit">
+    <i class="fa-solid fa-right-to-bracket"></i> LOGIN
+  </button>
+</form>
+
+<a class="buy-access" href="https://t.me/zyyneweraa" target="_blank">
+  <i class="fas fa-coins"></i> Buy Key Access
+</a>
+
+<div class="footer">© 2026 Kaizyy</div>
+
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const msg = params.get("msg");
+
+if(msg){
+  const toast = document.getElementById("toast");
+  toast.textContent = msg;
+  toast.style.display = "block";
+}
+</script>
+
+</body>
+</html>
